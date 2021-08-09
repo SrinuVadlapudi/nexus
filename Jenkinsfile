@@ -9,7 +9,7 @@ pipeline {
       stage('checkout') {
            steps {
              
-                git branch: 'master', url: 'https://github.com/ishaqmdgcp/nexus.git'
+                git branch: 'master', url: 'https://github.com/SrinuVadlapudi/nexus.git'
              
           }
         }
@@ -25,7 +25,7 @@ pipeline {
            steps {
                 
                 sh 'docker build -t samplewebapp:latest .' 
-                sh 'docker tag samplewebapp ishaqmd/javaapp:latest'
+                sh 'docker tag samplewebapp srinuvadlapudi/javaapp:latest'
                	                 
           }
         }
@@ -35,7 +35,7 @@ pipeline {
              
             steps 
 			{
-                sh "docker run --name javaapp -d -p 8008:8080 ishaqmd/javaapp"
+                sh "docker run --name javaapp -d -p 8008:8080 srinuvadlapudi/javaapp"
 				sh 'sleep 10'
 				
 				
@@ -68,7 +68,7 @@ pipeline {
         
 		withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER'), string(credentialsId: 'PASSWD', variable: 'DOCKER_PASSWORD')]) {
             sh 'docker login -u $DOCKER_USER -p $DOCKER_PASSWORD'
-              sh  'docker push ishaqmd/javaapp:latest'
+              sh  'docker push srinuvadlapudi/javaapp:latest'
           }
 		  
 
